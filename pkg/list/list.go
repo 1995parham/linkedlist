@@ -1,6 +1,10 @@
 package list
 
-import "github.com/1995parham/linkedlist/pkg/node"
+import (
+	"fmt"
+
+	"github.com/1995parham/linkedlist/pkg/node"
+)
 
 type List[T any] struct {
 	Head *node.Node[T]
@@ -20,4 +24,20 @@ func (l *List[T]) PushFront(data T) {
 		nn.Next = l.Head
 		l.Head = nn
 	}
+}
+
+func (l *List[T]) String() string {
+	e := l.Head
+	r := ""
+
+	for e != nil {
+		r += fmt.Sprintf("%v", e.Data)
+		e = e.Next
+
+		if e != nil {
+			r += " "
+		}
+	}
+
+	return r
 }
