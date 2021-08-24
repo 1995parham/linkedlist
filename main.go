@@ -12,6 +12,13 @@ func main() {
 	l.PushFront(10)
 	l.PushFront(20)
 	l.PushFront(40)
+	l.PushFront(42)
 
 	fmt.Println(l)
+
+	s := l.Filter(func(i int) bool {
+		return i%10 == 0
+	})
+
+	fmt.Println(s)
 }
