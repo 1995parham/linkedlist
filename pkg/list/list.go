@@ -26,6 +26,20 @@ func (l *List[T]) PushFront(data T) {
 	}
 }
 
+func (l *List[T]) Filter(fn func (T) bool) []T {
+	e := l.Head
+	r := make([]T, 0)
+
+	for e != nil {
+		if fn(e.Data) {
+			r = append(r, e.Data)
+		}
+		e = e.Next
+	}
+
+	return r
+}
+
 func (l *List[T]) String() string {
 	e := l.Head
 	r := ""
