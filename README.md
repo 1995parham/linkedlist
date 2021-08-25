@@ -55,3 +55,7 @@ func main() {
         fmt.Println(s)
 }
 ```
+
+## Related Issues
+
+- https://github.com/golang/go/issues/47896
