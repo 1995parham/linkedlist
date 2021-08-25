@@ -26,6 +26,22 @@ func (l *List[T]) PushFront(data T) {
 	}
 }
 
+func (l *List[T]) PushBack(data T) {
+	nn := node.New(data)
+	if l.Head == nil {
+		l.Head = nn
+	} else {
+		e := l.Head
+
+		for e.Next != nil {
+			e = e.Next
+		}
+
+		e.Next = nn
+	}
+}
+
+
 func (l *List[T]) Filter(fn func (T) bool) []T {
 	e := l.Head
 	r := make([]T, 0)

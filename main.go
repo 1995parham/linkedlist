@@ -13,6 +13,7 @@ func main() {
 	l.PushFront(20)
 	l.PushFront(40)
 	l.PushFront(42)
+	l.PushBack(1378)
 
 	fmt.Println(l)
 
