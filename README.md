@@ -1,6 +1,7 @@
 # linkedlist.go
 
-The first generic linked list in go :dancer:
+As you know generics will come to go 1.18 and one of the major drawbacks in go was implementing data structure because of the lack of generics.
+I implemented a small generic linked list in go and I think we can start having brand new data structures in Go.
 
 ## gotip
 
