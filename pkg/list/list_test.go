@@ -1,9 +1,13 @@
-package list
+package list_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/1995parham/linkedlist/pkg/list"
+)
 
 func TestListWith3Member(t *testing.T) {
-	l := New[int]()
+	l := list.New[int]()
 	l.PushFront(10)
 
 	if l.Len() != 1 {
