@@ -2,12 +2,10 @@ package list
 
 import (
 	"fmt"
-
-	"github.com/1995parham/linkedlist/pkg/node"
 )
 
 type List[T any] struct {
-	Head *node.Node[T]
+	Head *Node[T]
 }
 
 func New[T any]() *List[T] {
@@ -16,8 +14,21 @@ func New[T any]() *List[T] {
 	}
 }
 
+func (l *List[T]) Len() int {
+	e := l.Head
+	len := 0
+
+	for e != nil {
+		e = e.Next
+
+		len++
+	}
+
+	return len
+}
+
 func (l *List[T]) PushFront(data T) {
-	nn := node.New(data)
+	nn := NewNode(data)
 	if l.Head == nil {
 		l.Head = nn
 	} else {
@@ -27,7 +38,7 @@ func (l *List[T]) PushFront(data T) {
 }
 
 func (l *List[T]) PushBack(data T) {
-	nn := node.New(data)
+	nn := NewNode(data)
 	if l.Head == nil {
 		l.Head = nn
 	} else {

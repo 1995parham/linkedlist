@@ -1,4 +1,4 @@
-package node
+package list
 
 type Node[T any] struct {
 	Data T
@@ -6,7 +6,7 @@ type Node[T any] struct {
 }
 
 
-func New[T any](data T) *Node[T] {
+func NewNode[T any](data T) *Node[T] {
 	return &Node[T]{
 		Data: data,
 		Next: nil,
