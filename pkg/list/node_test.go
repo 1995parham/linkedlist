@@ -1,9 +1,9 @@
-package node
+package list
 
 import (
 	"testing"
 )
 
 func TestNewNode(t *testing.T) {
-	_ = New(10)
+	_ = NewNode(10)
 }
