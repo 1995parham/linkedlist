@@ -10,7 +10,7 @@ type List[T any] struct {
 
 func New[T any]() *List[T] {
 	return &List[T]{
-		Head: &endNode[T]{},
+		Head: newEndNode(),
 	}
 }
 
