@@ -13,7 +13,7 @@ func TestNewNode(t *testing.T) {
 }
 
 func TestNewEndNode(t *testing.T) {
-	n := newEndNode()
+	n := newEndNode[int]()
 
 	if n.valid() != false {
 		t.Errorf("end node must be invalid")
