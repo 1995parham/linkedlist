@@ -5,79 +5,57 @@ import (
 )
 
 type List[T any] struct {
-	Head *Node[T]
+	Head Node[T]
 }
 
 func New[T any]() *List[T] {
-	return &List[T]{
-		Head: nil,
-	}
+	return &List[T]{&endNode[T]{}}
 }
 
 func (l *List[T]) Len() int {
-	e := l.Head
-	len := 0
-
-	for e != nil {
-		e = e.Next
-
-		len++
+	length := 0
+	for e := l.Head; e.valid(); e = e.next() {
+		length++
 	}
-
-	return len
+	return length
 }
 
 func (l *List[T]) PushFront(data T) {
-	nn := NewNode(data)
-	if l.Head == nil {
-		l.Head = nn
-	} else {
-		nn.Next = l.Head
-		l.Head = nn
-	}
+	nn := newNode(data)
+	nn.setNext(l.Head)
+	l.Head = nn
 }
 
 func (l *List[T]) PushBack(data T) {
-	nn := NewNode(data)
-	if l.Head == nil {
-		l.Head = nn
-	} else {
-		e := l.Head
-
-		for e.Next != nil {
-			e = e.Next
-		}
-
-		e.Next = nn
-	}
+	nn := newNode(data)
+	l.Head.pushNext(l.Head, nn)
 }
 
-
-func (l *List[T]) Filter(fn func (T) bool) []T {
-	e := l.Head
+func (l *List[T]) Filter(fn func(T) bool) []T {
 	r := make([]T, 0)
 
-	for e != nil {
-		if fn(e.Data) {
-			r = append(r, e.Data)
+	for e := l.Head; e.valid(); e = e.next()  {
+		data := getData(e)
+		if fn(data) {
+			r = append(r, data)
 		}
-		e = e.Next
 	}
 
 	return r
 }
 
+func getData[T any](e Node[T]) T {
+	if n, ok := e.(*node[T]); ok {
+		return n.Data
+	}
+	return *new(T)
+}
+
 func (l *List[T]) String() string {
-	e := l.Head
 	r := ""
 
-	for e != nil {
-		r += fmt.Sprintf("%v", e.Data)
-		e = e.Next
-
-		if e != nil {
-			r += " "
-		}
+	for e := l.Head; e.valid(); e = e.next() {
+		r += fmt.Sprintf("%v", getData(e))
 	}
 
 	return r
