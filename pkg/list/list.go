@@ -9,7 +9,9 @@ type List[T any] struct {
 }
 
 func New[T any]() *List[T] {
-	return &List[T]{&endNode[T]{}}
+	return &List[T]{
+		Head: &endNode[T]{},
+	}
 }
 
 func (l *List[T]) Len() int {
@@ -28,6 +30,7 @@ func (l *List[T]) PushFront(data T) {
 
 func (l *List[T]) PushBack(data T) {
 	nn := newNode(data)
+
 	l.Head.pushNext(l.Head, nn)
 }
 
@@ -48,6 +51,7 @@ func getData[T any](e Node[T]) T {
 	if n, ok := e.(*node[T]); ok {
 		return n.Data
 	}
+
 	return *new(T)
 }
 

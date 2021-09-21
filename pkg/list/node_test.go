@@ -1,11 +1,9 @@
-package list_test
+package list
 
 import (
 	"testing"
-
-	"github.com/1995parham/linkedlist/pkg/list"
 )
 
 func TestNewNode(t *testing.T) {
-	_ = list.NewNode(10)
+	_ = newNode(10)
 }
