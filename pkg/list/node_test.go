@@ -12,7 +12,7 @@ func TestNewNode(t *testing.T) {
 	}
 }
 
-func TestNewNode(t *testing.T) {
+func TestNewEndNode(t *testing.T) {
 	n := newEndNode()
 
 	if n.valid() != false {
