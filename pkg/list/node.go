@@ -1,5 +1,12 @@
 package list
 
+type Node[T any] interface {
+	pushNext(last, new Node[T])
+	valid() bool
+	next() Node[T]
+	setNext(Node[T])
+}
+
 type node[T any] struct {
 	Data T
 	Next Node[T]
@@ -12,24 +19,7 @@ func newNode[T any](data T) *node[T] {
 	}
 }
 
-type endNode[T any] struct{}
-
-func (e *endNode[T]) valid() bool {
-	return false
-}
-
-func (e *endNode[T]) next() Node[T] {
-	return e
-}
-
-func (e *endNode[T]) setNext(Node[T]) {}
-
-func (e *endNode[T]) pushNext(last, new Node[T]) {
-	last.setNext(new)
-	new.setNext(e)
-}
-
-func (n *node[T]) pushNext(last, new Node[T]) {
+func (n *node[T]) pushNext(_, new Node[T]) {
 	n.Next.pushNext(n, new)
 }
 
@@ -45,9 +35,25 @@ func (n *node[T]) next() Node[T] {
 	return n.Next
 }
 
-type Node[T any] interface {
-	pushNext(last, new Node[T])
-	valid() bool
-	next() Node[T]
-	setNext(Node[T])
+type endNode[T any] struct{}
+
+func newEndNode[T any]() *endNode[T] {
+	return &endNode[T]{}
+}
+
+func (e *endNode[T]) valid() bool {
+	return false
+}
+
+func (e *endNode[T]) next() Node[T] {
+	return e
+}
+
+func (e *endNode[T]) setNext(Node[T]) {
+	return
+}
+
+func (e *endNode[T]) pushNext(previous, new Node[T]) {
+	previous.setNext(new)
+	new.setNext(e)
 }
