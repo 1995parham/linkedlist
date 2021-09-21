@@ -5,9 +5,17 @@ import (
 )
 
 func TestNewNode(t *testing.T) {
-	_ = newNode(10)
+	n := newNode(10)
+
+	if n.valid() != true {
+		t.Errorf("node must be valid")
+	}
 }
 
 func TestNewNode(t *testing.T) {
-	_ = newEndNode()
+	n := newEndNode()
+
+	if n.valid() != false {
+		t.Errorf("end node must be invalid")
+	}
 }
