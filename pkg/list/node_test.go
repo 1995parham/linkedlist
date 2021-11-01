@@ -5,7 +5,7 @@ import (
 )
 
 func TestNewNode(t *testing.T) {
-	n := newNode(10)
+	n := newNode[int](10)
 
 	if n.valid() != true {
 		t.Errorf("node must be valid")
