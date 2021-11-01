@@ -5,7 +5,7 @@ import (
 	)
 
 func TestListWith2Members(t *testing.T) {
-	l := New[int]()
+	var l *List[int] = New[int]()
 	l.PushFront(10)
 	l.PushFront(20)
 
@@ -37,4 +37,11 @@ func TestListWith2MembersBack(t *testing.T) {
 	if getData[int](first.next()) != 20 {
 		t.Errorf("next item should be 20")
 	}
+}
+
+
+func TestListIsLinker(t *testing.T) {
+	//test for interface implementation
+	var _ Linker[interface{}] = &List[interface{}]{}
+	var _ Linker[interface{}] = New[interface{}]()
 }
