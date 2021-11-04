@@ -1,10 +1,15 @@
 package list
 
+
+type Linker[T any] interface {
+	setNext(Node[T])
+}
+
 type Node[T any] interface {
-	pushNext(last, new Node[T])
+	Linker[T]
+	pushNext(last Linker[T], new Node[T])
 	valid() bool
 	next() Node[T]
-	setNext(Node[T])
 }
 
 type node[T any] struct {
@@ -19,7 +24,7 @@ func newNode[T any](data T) *node[T] {
 	}
 }
 
-func (n *node[T]) pushNext(_, new Node[T]) {
+func (n *node[T]) pushNext(_ Linker[T], new Node[T]) {
 	n.Next.pushNext(n, new)
 }
 
@@ -53,7 +58,7 @@ func (e *endNode[T]) setNext(Node[T]) {
 	return
 }
 
-func (e *endNode[T]) pushNext(previous, new Node[T]) {
+func (e *endNode[T]) pushNext(previous Linker[T], new Node[T]) {
 	previous.setNext(new)
 	new.setNext(e)
 }
