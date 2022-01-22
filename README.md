@@ -1,4 +1,4 @@
-# linkedlist.go
+# Linked list in Go
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/1995parham/linkedlist.go/ci?label=ci&logo=github&style=flat-square)
 [![Codecov](https://img.shields.io/codecov/c/gh/1995parham/linkedlist.go?logo=codecov&style=flat-square)](https://codecov.io/gh/1995parham/linkedlist.go)
