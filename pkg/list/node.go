@@ -1,10 +1,11 @@
 package list
 
-
 type Linker[T any] interface {
 	setNext(Node[T])
 }
 
+// Node interface defines an interface for nodes in the linked list
+// so we can iterate them easier.
 type Node[T any] interface {
 	Linker[T]
 	pushNext(last Linker[T], new Node[T])
