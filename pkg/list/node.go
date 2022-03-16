@@ -41,6 +41,8 @@ func (n *node[T]) next() Node[T] {
 	return n.Next
 }
 
+// endNode indicates end of the linked list and it will reduce our checks
+// by automatically handles the edge conditions.
 type endNode[T any] struct{}
 
 func newEndNode[T any]() *endNode[T] {
