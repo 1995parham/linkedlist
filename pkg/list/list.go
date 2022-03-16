@@ -8,14 +8,14 @@ type List[T any] struct {
 	Head Node[T]
 }
 
-func (l *List[T]) setNext(node Node[T]) {
-	l.Head = node
-}
-
 func New[T any]() *List[T] {
 	return &List[T]{
 		Head: newEndNode[T](),
 	}
+}
+
+func (l *List[T]) setNext(node Node[T]) {
+	l.Head = node
 }
 
 func (l *List[T]) Len() int {
@@ -41,7 +41,7 @@ func (l *List[T]) PushBack(data T) {
 func (l *List[T]) Filter(fn func(T) bool) []T {
 	r := make([]T, 0)
 
-	for e := l.Head; e.valid(); e = e.next()  {
+	for e := l.Head; e.valid(); e = e.next() {
 		data := getData(e)
 		if fn(data) {
 			r = append(r, data)
