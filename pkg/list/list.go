@@ -23,6 +23,7 @@ func (l *List[T]) Len() int {
 	for e := l.Head; e.valid(); e = e.next() {
 		length++
 	}
+
 	return length
 }
 
