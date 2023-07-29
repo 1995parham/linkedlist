@@ -11,6 +11,7 @@ type Node[T any] interface {
 	pushNext(last Linker[T], new Node[T])
 	valid() bool
 	next() Node[T]
+	data() T
 }
 
 type node[T any] struct {
@@ -41,6 +42,10 @@ func (n *node[T]) next() Node[T] {
 	return n.Next
 }
 
+func (n *node[T]) data() T {
+	return n.Data
+}
+
 // endNode indicates end of the linked list and it will reduce our checks
 // by automatically handles the edge conditions.
 type endNode[T any] struct{}
@@ -59,7 +64,11 @@ func (e *endNode[T]) next() Node[T] {
 
 func (e *endNode[T]) setNext(Node[T]) {}
 
-func (e *endNode[T]) pushNext(previous Linker[T], new Node[T]) {
-	previous.setNext(new)
-	new.setNext(e)
+func (e *endNode[T]) pushNext(previous Linker[T], next Node[T]) {
+	previous.setNext(next)
+	next.setNext(e)
+}
+
+func (e *endNode[T]) data() T {
+	return *new(T)
 }

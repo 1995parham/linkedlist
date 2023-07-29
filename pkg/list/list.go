@@ -43,7 +43,7 @@ func (l *List[T]) Filter(fn func(T) bool) []T {
 	r := make([]T, 0)
 
 	for e := l.Head; e.valid(); e = e.next() {
-		data := getData(e)
+		data := e.data()
 		if fn(data) {
 			r = append(r, data)
 		}
@@ -52,20 +52,13 @@ func (l *List[T]) Filter(fn func(T) bool) []T {
 	return r
 }
 
-func getData[T any](e Node[T]) T {
-	if n, ok := e.(*node[T]); ok {
-		return n.Data
-	}
-
-	return *new(T)
-}
-
 func (l *List[T]) String() string {
-	r := ""
+	r := "[ "
 
 	for e := l.Head; e.valid(); e = e.next() {
-		r += fmt.Sprintf("%v", getData(e))
+		r += fmt.Sprintf("%v ", e.data())
 	}
+	r += "]"
 
 	return r
 }
