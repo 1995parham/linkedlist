@@ -3,12 +3,14 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/1995parham/linkedlist/ci.yaml?label=ci&logo=github&style=flat-square&branch=main)
 [![Codecov](https://img.shields.io/codecov/c/gh/1995parham/linkedlist?logo=codecov&style=flat-square)](https://codecov.io/gh/1995parham/linkedlist)
 
-As you know generics will come to go 1.18 and one of the major drawbacks in go was implementing data structure because of the lack of generics.
+As you know generics will come to go 1.18 and one of the major drawbacks in go was implementing data structure
+because of the lack of generics.
 I implemented a small generic linked list in go and I think we can start having brand new data structures in Go.
 
-## gotip
+## ~gotip~
 
-first of all you need to install the master version of golang.
+First of all you need to install the master version of golang
+and for this you can use `gotip`.
 
 ```sh
 go install golang.org/dl/gotip@latest
@@ -62,4 +64,4 @@ func main() {
 
 ## Related Issues
 
-- https://github.com/golang/go/issues/47896
+- <https://github.com/golang/go/issues/47896>
