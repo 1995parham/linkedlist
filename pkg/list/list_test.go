@@ -44,6 +44,44 @@ func TestListWith2MembersBack(t *testing.T) {
 	}
 }
 
+func TestFilter(t *testing.T) {
+	l := New[int]()
+
+	l.PushBack(10)
+	l.PushBack(11)
+	l.PushBack(20)
+	l.PushBack(21)
+
+	r := l.Filter(func(i int) bool {
+		return i%2 == 0
+	})
+
+	if len(r) != 2 {
+		t.Errorf("result after filtering must contains only 2 items")
+	}
+
+	if r[0] != 10 && r[1] != 10 {
+		t.Errorf("result after filtering must contains 10")
+	}
+
+	if r[0] != 20 && r[1] != 20 {
+		t.Errorf("result after filtering must contains 20")
+	}
+}
+
+func TestString(t *testing.T) {
+	l := New[int]()
+
+	l.PushBack(10)
+	l.PushBack(11)
+	l.PushBack(20)
+	l.PushBack(21)
+
+	if l.String() != "[ 10 11 20 21 ]" {
+		t.Errorf("linkedlist string representation is not currect")
+	}
+}
+
 func TestListIsLinker(t *testing.T) {
 	t.Parallel()
 
