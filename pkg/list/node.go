@@ -57,9 +57,7 @@ func (e *endNode[T]) next() Node[T] {
 	return e
 }
 
-func (e *endNode[T]) setNext(Node[T]) {
-	return
-}
+func (e *endNode[T]) setNext(Node[T]) {}
 
 func (e *endNode[T]) pushNext(previous Linker[T], new Node[T]) {
 	previous.setNext(new)

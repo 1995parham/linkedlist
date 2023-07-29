@@ -5,7 +5,7 @@ import (
 )
 
 func TestListWith2Members(t *testing.T) {
-	var l = New[int]()
+	l := New[int]()
 
 	l.PushFront(10)
 	l.PushFront(20)
@@ -14,7 +14,7 @@ func TestListWith2Members(t *testing.T) {
 		t.Errorf("list should have 2 items but have %d items in it", l.Len())
 	}
 
-	first := l.Head.(Node[int])
+	first := l.Head
 	if getData[int](first) != 20 {
 		t.Errorf("first item should be 20")
 	}
@@ -34,7 +34,7 @@ func TestListWith2MembersBack(t *testing.T) {
 		t.Errorf("list should have 2 items but have %d items in it", l.Len())
 	}
 
-	first := l.Head.(Node[int])
+	first := l.Head
 	if getData[int](first) != 10 {
 		t.Errorf("first item should be 10")
 	}
