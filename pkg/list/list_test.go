@@ -15,11 +15,11 @@ func TestListWith2Members(t *testing.T) {
 	}
 
 	first := l.Head
-	if getData[int](first) != 20 {
+	if first.data() != 20 {
 		t.Errorf("first item should be 20")
 	}
 
-	if getData[int](first.next()) != 10 {
+	if first.next().data() != 10 {
 		t.Errorf("next item should be 10")
 	}
 }
@@ -35,11 +35,11 @@ func TestListWith2MembersBack(t *testing.T) {
 	}
 
 	first := l.Head
-	if getData[int](first) != 10 {
+	if first.data() != 10 {
 		t.Errorf("first item should be 10")
 	}
 
-	if getData[int](first.next()) != 20 {
+	if first.next().data() != 20 {
 		t.Errorf("next item should be 20")
 	}
 }
