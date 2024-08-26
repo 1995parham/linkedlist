@@ -1,7 +1,9 @@
-# Linked list in Go
-
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/1995parham/linkedlist/ci.yaml?label=ci&logo=github&style=flat-square&branch=main)
-[![Codecov](https://img.shields.io/codecov/c/gh/1995parham/linkedlist?logo=codecov&style=flat-square)](https://codecov.io/gh/1995parham/linkedlist)
+<h1 align="center"> Linked List, in Go </h1>
+<p align="center">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/1995parham/linkedlist/ci.yaml?logo=github&style=for-the-badge">
+  <img alt="GitHub go.mod Go version (subdirectory of monorepo)" src="https://img.shields.io/github/go-mod/go-version/1995parham/linkedlist?style=for-the-badge&logo=go">
+  <img alt="Codecov" src="https://img.shields.io/codecov/c/github/1995parham/linkedlist?logo=codecov&style=for-the-badge">
+</p>
 
 As you know generics will come to go 1.18 and one of the major drawbacks in go was implementing data structure
 because of the lack of generics.
