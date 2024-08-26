@@ -21,5 +21,9 @@ func main() {
 		return i%10 == 0
 	})
 
+	for value := range l.All() {
+		fmt.Printf("- %d\n", value)
+	}
+
 	fmt.Println(s)
 }

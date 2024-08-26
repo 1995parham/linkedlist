@@ -2,6 +2,7 @@ package list
 
 import (
 	"fmt"
+	"iter"
 )
 
 type List[T any] struct {
@@ -50,6 +51,16 @@ func (l *List[T]) Filter(fn func(T) bool) []T {
 	}
 
 	return r
+}
+
+func (l *List[T]) All() iter.Seq[T] {
+	return func(yield func(T) bool) {
+		for e := l.Head; e.valid(); e = e.next() {
+			if !yield(e.data()) {
+				return
+			}
+		}
+	}
 }
 
 func (l *List[T]) String() string {
