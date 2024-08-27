@@ -40,17 +40,17 @@ func (l *List[T]) PushBack(data T) {
 	l.Head.pushNext(l, nn)
 }
 
-func (l *List[T]) Filter(fn func(T) bool) []T {
-	r := make([]T, 0)
-
-	for e := l.Head; e.valid(); e = e.next() {
-		data := e.data()
-		if fn(data) {
-			r = append(r, data)
+func (l *List[T]) Filter(fn func(T) bool) iter.Seq[T] {
+	return func(yield func(T) bool) {
+		for e := l.Head; e.valid(); e = e.next() {
+			data := e.data()
+			if fn(data) {
+				if !yield(data) {
+					return
+				}
+			}
 		}
 	}
-
-	return r
 }
 
 func (l *List[T]) All() iter.Seq[T] {
