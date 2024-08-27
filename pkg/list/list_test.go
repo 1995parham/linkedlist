@@ -56,15 +56,23 @@ func TestFilter(t *testing.T) {
 		return i%2 == 0
 	})
 
-	if len(r) != 2 {
+	resultLen := 0
+	resultSet := make(map[int]bool)
+
+	for i := range r {
+		resultSet[i] = true
+		resultLen += 1
+	}
+
+	if resultLen != 2 {
 		t.Errorf("result after filtering must contains only 2 items")
 	}
 
-	if r[0] != 10 && r[1] != 10 {
+	if !resultSet[10] {
 		t.Errorf("result after filtering must contains 10")
 	}
 
-	if r[0] != 20 && r[1] != 20 {
+	if !resultSet[20] {
 		t.Errorf("result after filtering must contains 20")
 	}
 }
