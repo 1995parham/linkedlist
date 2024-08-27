@@ -1,4 +1,9 @@
 <h1 align="center"> Linked List, in Go </h1>
+
+<p align="center">
+  <img src="./.github/assets/banner.png" height="250px">
+</p>
+
 <p align="center">
   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/1995parham/linkedlist/ci.yaml?logo=github&style=for-the-badge">
   <img alt="GitHub go.mod Go version (subdirectory of monorepo)" src="https://img.shields.io/github/go-mod/go-version/1995parham/linkedlist?style=for-the-badge&logo=go">
