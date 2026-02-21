@@ -7,6 +7,13 @@ import (
 	"github.com/1995parham/linkedlist/pkg/list"
 )
 
+// Int demonstrates implementing Comparable[C Comparable[C]] (Go 1.26 recursive generics).
+type Int int
+
+func (a Int) Less(b Int) bool {
+	return a < b
+}
+
 func main() {
 	l := list.New[int]()
 
@@ -50,4 +57,18 @@ func main() {
 		return fmt.Sprintf("#%d", i)
 	}))
 	fmt.Println("labels:", labels)
+
+	// SortedList uses Go 1.26 recursive generic types:
+	//   type Comparable[C Comparable[C]] interface { Less(C) bool }
+	// Elements are automatically inserted in ascending order.
+	sl := list.NewSorted[Int]()
+
+	sl.Insert(30)
+	sl.Insert(10)
+	sl.Insert(50)
+	sl.Insert(20)
+	sl.Insert(40)
+
+	fmt.Println("sorted:", sl)
+	fmt.Println("sorted collected:", sl.Collect())
 }
