@@ -45,15 +45,16 @@ func main() {
 	}))
 	fmt.Println("evens:", evens)
 
-	// Map is a standalone generic function with two type parameters [T, U any]
-	// demonstrating multi-type-parameter generics (methods can't have extra type params)
-	doubled := slices.Collect(list.Map(l.Values(), func(i int) int {
+	// Map is a generic method (Go 1.27): it carries its own type parameter U in
+	// addition to the receiver's T, so it can transform the element type while
+	// reading the list directly. Before Go 1.27 this had to be a free function.
+	doubled := slices.Collect(l.Map(func(i int) int {
 		return i * 2
 	}))
 	fmt.Println("doubled:", doubled)
 
-	// Map can also change the element type (int -> string)
-	labels := slices.Collect(list.Map(l.Values(), func(i int) string {
+	// The generic method can also change the element type (int -> string).
+	labels := slices.Collect(l.Map(func(i int) string {
 		return fmt.Sprintf("#%d", i)
 	}))
 	fmt.Println("labels:", labels)

@@ -69,6 +69,43 @@ func main() {
 }
 ```
 
+## Generic methods (Go 1.27)
+
+Go 1.27 lets methods declare their own type parameters. Previously a transform that
+changed the element type had to be a standalone function, because a method could
+only use the receiver's type parameters. `Map` now lives on `*List[T]` and carries
+its own `U`:
+
+```go
+func (l *List[T]) Map[U any](fn func(T) U) iter.Seq[U] {
+        return func(yield func(U) bool) {
+                for value := range l.Values() {
+                        if !yield(fn(value)) {
+                                return
+                        }
+                }
+        }
+}
+```
+
+```go
+func main() {
+        l := list.New[int]()
+
+        l.PushBack(1)
+        l.PushBack(2)
+        l.PushBack(3)
+
+        // int -> string, all off the method — no free function needed.
+        labels := slices.Collect(l.Map(func(i int) string {
+                return fmt.Sprintf("#%d", i)
+        }))
+
+        fmt.Println(labels) // [#1 #2 #3]
+}
+```
+
 ## Related Issues
 
 - <https://github.com/golang/go/issues/47896>
+- <https://github.com/golang/go/issues/49085> — generic methods

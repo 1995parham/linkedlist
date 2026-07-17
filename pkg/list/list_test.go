@@ -143,7 +143,7 @@ func TestMap(t *testing.T) {
 	l.PushBack(2)
 	l.PushBack(3)
 
-	doubled := slices.Collect(Map(l.Values(), func(i int) int {
+	doubled := slices.Collect(l.Map(func(i int) int {
 		return i * 2
 	}))
 
@@ -159,7 +159,7 @@ func TestMapTypeChange(t *testing.T) {
 	l.PushBack(2)
 	l.PushBack(3)
 
-	strings := slices.Collect(Map(l.Values(), func(i int) string {
+	strings := slices.Collect(l.Map(func(i int) string {
 		return fmt.Sprintf("#%d", i)
 	}))
 

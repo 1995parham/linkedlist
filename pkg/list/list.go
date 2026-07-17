@@ -95,13 +95,18 @@ func (l *List[T]) String() string {
 	return r
 }
 
-// Map transforms each element of an iterator using the given function,
-// returning a new iterator. This is a standalone function because Go methods
-// cannot introduce additional type parameters (Go generics constraint).
-func Map[T, U any](s iter.Seq[T], fn func(T) U) iter.Seq[U] {
+// Map transforms each element of the list using the given function, returning a
+// new iterator over the results.
+//
+// This is a generic method: it introduces its own type parameter U on top of the
+// receiver's T. Before Go 1.27 methods could not declare type parameters, so this
+// had to be written as a standalone function taking an iter.Seq[T]. Go 1.27 lifts
+// that restriction (proposal golang.org/issue/49085), letting Map read the
+// receiver directly while still changing the element type from T to U.
+func (l *List[T]) Map[U any](fn func(T) U) iter.Seq[U] {
 	return func(yield func(U) bool) {
-		for v := range s {
-			if !yield(fn(v)) {
+		for value := range l.Values() {
+			if !yield(fn(value)) {
 				return
 			}
 		}
