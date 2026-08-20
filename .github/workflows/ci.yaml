@@ -11,7 +11,7 @@ jobs:
       - uses: actions/setup-go@v7
         with:
           go-version-file: "go.mod"
-      - uses: golangci/golangci-lint-action@v8
+      - uses: golangci/golangci-lint-action@v9
         with:
           # v2.13.0 is the first release built with Go 1.27. Older binaries
           # refuse a module targeting a language version newer than their own.
