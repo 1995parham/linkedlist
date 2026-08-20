@@ -1,14 +1,17 @@
 package list
 
+// Linker is the write side of a node: it can be pointed at a new successor.
+// List itself implements it so that pushing onto an empty list and pushing
+// onto a node go through the same path.
 type Linker[T any] interface {
-	setNext(Node[T])
+	setNext(node Node[T])
 }
 
 // Node interface defines an interface for nodes in the linked list
 // so we can iterate them easier.
 type Node[T any] interface {
 	Linker[T]
-	pushNext(last Linker[T], new Node[T])
+	pushNext(last Linker[T], nn Node[T])
 	valid() bool
 	next() Node[T]
 	data() T
@@ -26,8 +29,8 @@ func newNode[T any](data T) *node[T] {
 	}
 }
 
-func (n *node[T]) pushNext(_ Linker[T], new Node[T]) {
-	n.Next.pushNext(n, new)
+func (n *node[T]) pushNext(_ Linker[T], nn Node[T]) {
+	n.Next.pushNext(n, nn)
 }
 
 func (n *node[T]) setNext(node Node[T]) {

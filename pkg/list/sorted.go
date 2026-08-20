@@ -3,12 +3,13 @@ package list
 import (
 	"fmt"
 	"iter"
+	"strings"
 )
 
 // Comparable is a recursive generic constraint (Go 1.26) that requires
 // types to be comparable with themselves.
 type Comparable[C Comparable[C]] interface {
-	Less(C) bool
+	Less(other C) bool
 }
 
 // SortedList is a linked list that maintains elements in ascending order.
@@ -18,6 +19,7 @@ type SortedList[T Comparable[T]] struct {
 	list *List[T]
 }
 
+// NewSorted returns an empty sorted list ready for use.
 func NewSorted[T Comparable[T]]() *SortedList[T] {
 	return &SortedList[T]{
 		list: New[T](),
@@ -46,33 +48,43 @@ func (sl *SortedList[T]) Insert(data T) {
 	curr.setNext(nn)
 }
 
+// Len reports the number of elements in the list.
 func (sl *SortedList[T]) Len() int {
 	return sl.list.Len()
 }
 
+// Values returns an iterator over the elements in ascending order.
 func (sl *SortedList[T]) Values() iter.Seq[T] {
 	return sl.list.Values()
 }
 
+// All returns an iterator over index-value pairs in ascending order.
 func (sl *SortedList[T]) All() iter.Seq2[int, T] {
 	return sl.list.All()
 }
 
+// Collect materializes the list into a sorted slice.
 func (sl *SortedList[T]) Collect() []T {
 	return sl.list.Collect()
 }
 
+// Filter returns an iterator over the elements for which fn reports true,
+// preserving the sorted order.
 func (sl *SortedList[T]) Filter(fn func(T) bool) iter.Seq[T] {
 	return sl.list.Filter(fn)
 }
 
+// String renders the list as a bracketed, space-separated sequence.
 func (sl *SortedList[T]) String() string {
-	r := "[ "
+	var sb strings.Builder
+
+	sb.WriteString("[ ")
 
 	for value := range sl.Values() {
-		r += fmt.Sprintf("%v ", value)
+		fmt.Fprintf(&sb, "%v ", value)
 	}
-	r += "]"
 
-	return r
+	sb.WriteString("]")
+
+	return sb.String()
 }

@@ -1,0 +1,35 @@
+---
+version: "2"
+linters:
+  default: all
+  disable:
+    # Keep this list short. Each entry needs a one-line "why" comment.
+    - depguard # noisy without a curated allowlist; revisit when one exists
+    - gomodguard # same reasoning as depguard
+    - tagliatelle # struct tags often follow external API naming, not Go style
+    - varnamelen # short receiver / loop names are idiomatic Go
+    # Both the legacy and _v5 names are listed: under `default: all` disabling
+    # only one of a deprecated/replacement pair silently enables the other.
+    - wsl # whitespace cop produces too much churn for too little signal
+    - wsl_v5 # ditto
+    - exhaustruct # every literal would have to spell out zero-valued fields
+    - exhaustruct_v5 # ditto
+    - ireturn # fires on `data() T`; a type parameter is not an interface return
+    - forbidigo # main.go is a demo whose whole job is printing to stdout
+    - mnd # the demo feeds the list arbitrary literals on purpose
+    - paralleltest # these tests are microseconds; t.Parallel() buys nothing
+    - testpackage # tests live in `package list` to reach unexported nodes
+  settings:
+    revive:
+      # `revive` stays enabled — it is what enforces godoc comments on
+      # exported names. Tune its rules here rather than disabling it wholesale.
+      rules:
+        - name: exported
+          arguments: ["checkPrivateReceivers", "disableStutteringCheck"]
+        - name: package-comments
+        - name: var-naming
+issues:
+  # `nolintlint` stays on (it's in `default: all`) so every suppression must
+  # name the linter and carry a reason. This is the contract.
+  max-issues-per-linter: 0
+  max-same-issues: 0

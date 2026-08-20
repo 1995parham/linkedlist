@@ -1,15 +1,23 @@
+// Package list implements a generic singly linked list, plus a sorted
+// variant built on top of it. It exists to exercise Go generics — type
+// parameters, recursive constraints, range-over-func iterators, and
+// generic methods — on a data structure that used to need code generation.
 package list
 
 import (
 	"fmt"
 	"iter"
 	"slices"
+	"strings"
 )
 
+// List is a singly linked list of T. The zero value is not usable; build one
+// with New, which seeds Head with the end-of-list sentinel.
 type List[T any] struct {
 	Head Node[T]
 }
 
+// New returns an empty list ready for use.
 func New[T any]() *List[T] {
 	return &List[T]{
 		Head: newEndNode[T](),
@@ -20,6 +28,8 @@ func (l *List[T]) setNext(node Node[T]) {
 	l.Head = node
 }
 
+// Len reports the number of elements in the list. It walks the list, so it
+// runs in O(n).
 func (l *List[T]) Len() int {
 	length := 0
 	for range l.Values() {
@@ -29,18 +39,23 @@ func (l *List[T]) Len() int {
 	return length
 }
 
+// PushFront inserts data at the head of the list in O(1).
 func (l *List[T]) PushFront(data T) {
 	nn := newNode(data)
 	nn.setNext(l.Head)
 	l.Head = nn
 }
 
+// PushBack appends data to the tail of the list. It walks to the end, so it
+// runs in O(n).
 func (l *List[T]) PushBack(data T) {
 	nn := newNode(data)
 
 	l.Head.pushNext(l, nn)
 }
 
+// Filter returns an iterator over the elements for which fn reports true.
+// The list is walked lazily as the iterator is consumed.
 func (l *List[T]) Filter(fn func(T) bool) iter.Seq[T] {
 	return func(yield func(T) bool) {
 		for value := range l.Values() {
@@ -84,15 +99,19 @@ func (l *List[T]) Collect() []T {
 	return slices.Collect(l.Values())
 }
 
+// String renders the list as a bracketed, space-separated sequence.
 func (l *List[T]) String() string {
-	r := "[ "
+	var sb strings.Builder
+
+	sb.WriteString("[ ")
 
 	for value := range l.Values() {
-		r += fmt.Sprintf("%v ", value)
+		fmt.Fprintf(&sb, "%v ", value)
 	}
-	r += "]"
 
-	return r
+	sb.WriteString("]")
+
+	return sb.String()
 }
 
 // Map transforms each element of the list using the given function, returning a

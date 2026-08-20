@@ -1,3 +1,5 @@
+// Command linkedlist is a runnable tour of the list package: it exercises the
+// iterators, the generic Map method, and the sorted list.
 package main
 
 import (
